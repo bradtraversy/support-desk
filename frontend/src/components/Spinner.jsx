@@ -1,7 +1,8 @@
+// NOTE: here should be loadingSpinner on className of inner div
 function Spinner() {
   return (
     <div className='loadingSpinnerContainer'>
-      <div className='loadingSpipnner'></div>
+      <div className='loadingSpinner'></div>
     </div>
   )
 }

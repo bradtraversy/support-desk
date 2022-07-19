@@ -12,17 +12,21 @@ function Tickets() {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    return () => {
-      if (isSuccess) {
-        dispatch(reset())
-      }
-    }
-  }, [dispatch, isSuccess])
+  // useEffect(() => {
+  //   return () => {
+  //     if (isSuccess) {
+  //       dispatch(reset())
+  //     }
+  //   }
+  // }, [dispatch, isSuccess])
+  // NOTE: only need one useEffect here
 
   useEffect(() => {
-    dispatch(getTickets())
-  }, [dispatch])
+    if (!isSuccess) dispatch(getTickets())
+    return () => {
+      if (isSuccess) dispatch(reset())
+    }
+  }, [dispatch, isSuccess])
 
   if (isLoading) {
     return <Spinner />
