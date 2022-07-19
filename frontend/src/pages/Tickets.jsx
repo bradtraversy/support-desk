@@ -12,17 +12,10 @@ function Tickets() {
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   return () => {
-  //     if (isSuccess) {
-  //       dispatch(reset())
-  //     }
-  //   }
-  // }, [dispatch, isSuccess])
   // NOTE: only need one useEffect here
 
   useEffect(() => {
-    if (!isSuccess) dispatch(getTickets())
+    dispatch(getTickets())
     return () => {
       if (isSuccess) dispatch(reset())
     }
