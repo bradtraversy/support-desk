@@ -6,9 +6,7 @@ import BackButton from '../components/BackButton'
 import TicketItem from '../components/TicketItem'
 
 function Tickets() {
-  const { tickets, isLoading, isSuccess } = useSelector(
-    (state) => state.tickets
-  )
+  const { tickets } = useSelector((state) => state.tickets)
 
   const dispatch = useDispatch()
 
@@ -16,12 +14,12 @@ function Tickets() {
 
   useEffect(() => {
     dispatch(getTickets())
-    return () => {
-      if (isSuccess) dispatch(reset())
-    }
-  }, [dispatch, isSuccess])
+  }, [dispatch])
 
-  if (isLoading) {
+  // NOTE: no need for loading state, we can check for absence of tickets
+  // If we don't have tickets we are loading, if we do have tickets we just
+  // need to update the tickets with latest tickets in the background
+  if (!tickets) {
     return <Spinner />
   }
 
