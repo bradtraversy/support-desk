@@ -102,7 +102,8 @@ export const ticketSlice = createSlice({
         state.message = action.payload
       })
       .addCase(getTickets.pending, (state) => {
-        // NOTE: clear single ticket on tickets page
+        // NOTE: clear single ticket on tickets page, this replaces need for
+        // loading state on individual ticket
         state.ticket = null
       })
       .addCase(getTickets.fulfilled, (state, action) => {
@@ -127,10 +128,8 @@ export const ticketSlice = createSlice({
         state.isError = false
         state.message = ''
         state.ticket = action.payload
-        state.tickets.map((ticket) =>
-          ticket._id === action.payload._id
-            ? (ticket.status = 'closed')
-            : ticket
+        state.tickets = state.tickets.map((ticket) =>
+          ticket._id === action.payload._id ? action.payload : ticket
         )
       })
   },
