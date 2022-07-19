@@ -28,13 +28,9 @@ Modal.setAppElement('#root')
 function Ticket() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [noteText, setNoteText] = useState('')
-  const { ticket, isLoading, isError, message } = useSelector(
-    (state) => state.tickets
-  )
+  const { ticket, isError, message } = useSelector((state) => state.tickets)
 
-  const { notes, isLoading: notesIsLoading } = useSelector(
-    (state) => state.notes
-  )
+  const { notes } = useSelector((state) => state.notes)
 
   // NOTE: no need for two useParams
   // const params = useParams()
