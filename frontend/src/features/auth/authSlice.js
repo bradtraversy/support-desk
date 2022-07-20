@@ -6,11 +6,11 @@ import { extractErrorMessage } from '../../utils'
 // Get user from localstorage
 const user = JSON.parse(localStorage.getItem('user'))
 
+// NOTE: remove isLoading, isSuccess from state as we can infer loading from
+// presence or absence of user plus no need for a reset function
 const initialState = {
   user: user ? user : null,
   isError: false,
-  isSuccess: false,
-  isLoading: false,
   message: '',
 }
 
@@ -48,40 +48,32 @@ export const logout = createAction('auth/logout', () => {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    reset: (state) => {
-      state.isLoading = false
-      state.isError = false
-      state.isSuccess = false
-      state.message = ''
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
-        state.isLoading = true
+        // reset state on pending
+        state.user = null
+        state.isError = false
+        state.message = ''
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
         state.user = action.payload
       })
       .addCase(register.rejected, (state, action) => {
-        state.isLoading = false
         state.isError = true
         state.message = action.payload
         state.user = null
       })
       .addCase(login.pending, (state) => {
-        state.isLoading = true
+        // reset state on pending
+        state.user = null
+        state.isError = false
+        state.message = ''
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
         state.user = action.payload
       })
       .addCase(login.rejected, (state, action) => {
-        state.isLoading = false
         state.isError = true
         state.message = action.payload
         state.user = null
