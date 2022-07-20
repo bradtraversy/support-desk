@@ -7,7 +7,7 @@ import noteService from './noteService'
 // reset was never actually used
 
 const initialState = {
-  notes: [],
+  notes: null,
   isError: false,
   message: '',
 }
@@ -58,7 +58,7 @@ export const noteSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getNotes.pending, (state) => {
-        state.notes = []
+        state.notes = null
         state.isError = false
         state.message = ''
       })

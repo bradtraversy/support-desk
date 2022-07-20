@@ -130,9 +130,11 @@ function Ticket() {
         </form>
       </Modal>
 
-      {notes.map((note) => (
-        <NoteItem key={note._id} note={note} />
-      ))}
+      {notes ? (
+        notes.map((note) => <NoteItem key={note._id} note={note} />)
+      ) : (
+        <Spinner />
+      )}
 
       {ticket.status !== 'closed' && (
         <button onClick={onTicketClose} className='btn btn-block btn-danger'>
