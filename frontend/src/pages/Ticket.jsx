@@ -45,8 +45,7 @@ function Ticket() {
 
     dispatch(getTicket(ticketId))
     dispatch(getNotes(ticketId))
-    // eslint-disable-next-line
-  }, [isError, message, ticketId])
+  }, [isError, message, ticketId, dispatch])
 
   // Close ticket
   const onTicketClose = () => {
