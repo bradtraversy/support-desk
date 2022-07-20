@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import noteService from './noteService'
 
+// NOTE: removed isLoading, isSuccess and reset
+// loading can be infered from presence or absence of data
+// success can be infered from presence or absence of error
+// reset was never actually used
+
 const initialState = {
   notes: [],
   isError: false,
