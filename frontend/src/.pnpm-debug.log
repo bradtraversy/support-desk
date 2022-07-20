@@ -1,0 +1,14 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_NO_SCRIPT",
+    "err": {
+      "name": "pnpm",
+      "message": "Missing script: server",
+      "code": "ERR_PNPM_NO_SCRIPT",
+      "stack": "pnpm: Missing script: server\n    at Object.handler (/home/will/.npm-packages/lib/node_modules/pnpm/dist/pnpm.cjs:184482:15)\n    at async /home/will/.npm-packages/lib/node_modules/pnpm/dist/pnpm.cjs:192593:21\n    at async run (/home/will/.npm-packages/lib/node_modules/pnpm/dist/pnpm.cjs:192567:34)\n    at async runPnpm (/home/will/.npm-packages/lib/node_modules/pnpm/dist/pnpm.cjs:192785:5)\n    at async /home/will/.npm-packages/lib/node_modules/pnpm/dist/pnpm.cjs:192777:7"
+    }
+  }
+}
