@@ -8,6 +8,8 @@ const user = JSON.parse(localStorage.getItem('user'))
 
 // NOTE: remove isSuccess from state as we can infer from
 // presence or absence of user plus no need for a reset function
+// No need for isError or message as we can catch the AsyncThunkAction rejection
+// in our component and we will have the error message there
 const initialState = {
   user: user ? user : null,
   isLoading: false,

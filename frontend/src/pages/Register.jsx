@@ -28,6 +28,9 @@ function Register() {
     }))
   }
 
+  // NOTE: no need for useEffect here as we get we can catch the
+  // AsyncThunkAction rejection in our onSubmit
+
   const onSubmit = (e) => {
     e.preventDefault()
 
