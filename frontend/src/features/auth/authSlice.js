@@ -10,9 +10,7 @@ const user = JSON.parse(localStorage.getItem('user'))
 // presence or absence of user plus no need for a reset function
 const initialState = {
   user: user ? user : null,
-  isError: false,
   isLoading: false,
-  message: '',
 }
 
 // Register new user
@@ -54,35 +52,27 @@ export const authSlice = createSlice({
       .addCase(register.pending, (state) => {
         // reset state on pending
         state.user = null
-        state.isError = false
         state.isLoading = true
-        state.message = ''
       })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload
         state.isLoading = false
       })
-      .addCase(register.rejected, (state, action) => {
-        state.isError = true
+      .addCase(register.rejected, (state) => {
         state.isLoading = false
-        state.message = action.payload
         state.user = null
       })
       .addCase(login.pending, (state) => {
         // reset state on pending
         state.user = null
         state.isLoading = false
-        state.isError = false
-        state.message = ''
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload
         state.isLoading = false
       })
-      .addCase(login.rejected, (state, action) => {
-        state.isError = true
+      .addCase(login.rejected, (state) => {
         state.isLoading = false
-        state.message = action.payload
         state.user = null
       })
       .addCase(logout, (state) => {

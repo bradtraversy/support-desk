@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { FaSignInAlt } from 'react-icons/fa'
@@ -17,13 +17,7 @@ function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { isLoading, isError, message } = useSelector((state) => state.auth)
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(message)
-    }
-  }, [isError, message])
+  const { isLoading } = useSelector((state) => state.auth)
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -42,11 +36,13 @@ function Login() {
 
     dispatch(login(userData))
       .unwrap()
-      .then(() => {
+      .then((user) => {
         // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
         // getting a good response from our API
+        toast.success(`Logged in as ${user.name}`)
         navigate('/')
       })
+      .catch(toast.error)
   }
 
   if (isLoading) {
