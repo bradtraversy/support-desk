@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { FaSignInAlt } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
-import { login, reset } from '../features/auth/authSlice'
+import { login } from '../features/auth/authSlice'
 import Spinner from '../components/Spinner'
 
 function Login() {
@@ -17,22 +17,13 @@ function Login() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  )
+  const { isLoading, isError, message } = useSelector((state) => state.auth)
 
   useEffect(() => {
     if (isError) {
       toast.error(message)
     }
-
-    // Redirect when logged in
-    if (isSuccess || user) {
-      navigate('/')
-    }
-
-    dispatch(reset())
-  }, [isError, isSuccess, user, message, navigate, dispatch])
+  }, [isError, message])
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -50,6 +41,11 @@ function Login() {
     }
 
     dispatch(login(userData))
+      .unwrap()
+      .then(() => {
+        // we got a good response so redirect the user
+        navigate('/')
+      })
   }
 
   if (isLoading) {

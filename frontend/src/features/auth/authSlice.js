@@ -6,11 +6,12 @@ import { extractErrorMessage } from '../../utils'
 // Get user from localstorage
 const user = JSON.parse(localStorage.getItem('user'))
 
-// NOTE: remove isLoading, isSuccess from state as we can infer loading from
+// NOTE: remove isSuccess from state as we can infer from
 // presence or absence of user plus no need for a reset function
 const initialState = {
   user: user ? user : null,
   isError: false,
+  isLoading: false,
   message: '',
 }
 
@@ -54,27 +55,33 @@ export const authSlice = createSlice({
         // reset state on pending
         state.user = null
         state.isError = false
+        state.isLoading = true
         state.message = ''
       })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload
+        state.isLoading = false
       })
       .addCase(register.rejected, (state, action) => {
         state.isError = true
+        state.isLoading = false
         state.message = action.payload
         state.user = null
       })
       .addCase(login.pending, (state) => {
         // reset state on pending
         state.user = null
+        state.isLoading = false
         state.isError = false
         state.message = ''
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload
+        state.isLoading = false
       })
       .addCase(login.rejected, (state, action) => {
         state.isError = true
+        state.isLoading = false
         state.message = action.payload
         state.user = null
       })
