@@ -49,6 +49,8 @@ function Register() {
       dispatch(register(userData))
         .unwrap()
         .then(() => {
+          // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
+          // getting a good response from our API
           navigate('/')
         })
     }

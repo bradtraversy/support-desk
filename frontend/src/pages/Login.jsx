@@ -43,7 +43,8 @@ function Login() {
     dispatch(login(userData))
       .unwrap()
       .then(() => {
-        // we got a good response so redirect the user
+        // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
+        // getting a good response from our API
         navigate('/')
       })
   }
