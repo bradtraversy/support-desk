@@ -3,11 +3,12 @@ import ticketService from './ticketService'
 // NOTE: use a extractErrorMessage function to save some repetition
 import { extractErrorMessage } from '../../utils'
 
+// NOTE: no need for isLoading, isSuccess, isError or message as we can leverage
+// our AsyncThunkAction and get Promise reolved or rejected messages at
+// component level
 const initialState = {
   tickets: null,
   ticket: null,
-  isError: false,
-  message: '',
 }
 
 // Create new ticket
@@ -71,10 +72,6 @@ export const ticketSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(createTicket.rejected, (state, action) => {
-        state.isError = true
-        state.message = action.payload
-      })
       .addCase(getTickets.pending, (state) => {
         // NOTE: clear single ticket on tickets page, this replaces need for
         // loading state on individual ticket
@@ -82,25 +79,14 @@ export const ticketSlice = createSlice({
       })
       .addCase(getTickets.fulfilled, (state, action) => {
         state.tickets = action.payload
-        state.isError = false
-        state.message = ''
       })
       .addCase(getTickets.rejected, (state, action) => {
-        state.isError = true
         state.message = action.payload
       })
       .addCase(getTicket.fulfilled, (state, action) => {
         state.ticket = action.payload
-        state.isError = false
-        state.message = ''
-      })
-      .addCase(getTicket.rejected, (state, action) => {
-        state.isError = true
-        state.message = action.payload
       })
       .addCase(closeTicket.fulfilled, (state, action) => {
-        state.isError = false
-        state.message = ''
         state.ticket = action.payload
         state.tickets = state.tickets.map((ticket) =>
           ticket._id === action.payload._id ? action.payload : ticket

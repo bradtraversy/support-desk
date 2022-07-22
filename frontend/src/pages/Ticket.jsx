@@ -28,7 +28,7 @@ Modal.setAppElement('#root')
 function Ticket() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [noteText, setNoteText] = useState('')
-  const { ticket, isError, message } = useSelector((state) => state.tickets)
+  const { ticket } = useSelector((state) => state.tickets)
 
   const { notes } = useSelector((state) => state.notes)
 
@@ -39,26 +39,34 @@ function Ticket() {
   const { ticketId } = useParams()
 
   useEffect(() => {
-    if (isError) {
-      toast.error(message)
-    }
-
-    dispatch(getTicket(ticketId))
-    dispatch(getNotes(ticketId))
-  }, [isError, message, ticketId, dispatch])
+    dispatch(getTicket(ticketId)).unwrap().catch(toast.error)
+    dispatch(getNotes(ticketId)).unwrap().catch(toast.error)
+  }, [ticketId, dispatch])
 
   // Close ticket
   const onTicketClose = () => {
+    // NOTE: we can unwrap our AsyncThunkACtion here so no need for isError and
+    // isSuccess state
     dispatch(closeTicket(ticketId))
-    toast.success('Ticket Closed')
-    navigate('/tickets')
+      .unwrap()
+      .then(() => {
+        toast.success('Ticket Closed')
+        navigate('/tickets')
+      })
+      .catch(toast.error)
   }
 
   // Create note submit
   const onNoteSubmit = (e) => {
+    // NOTE: we can unwrap our AsyncThunkACtion here so no need for isError and
+    // isSuccess state
     e.preventDefault()
     dispatch(createNote({ noteText, ticketId }))
-    closeModal()
+      .unwrap()
+      .then(() => {
+        closeModal()
+      })
+      .catch(toast.error)
   }
 
   // Open/close modal
@@ -67,10 +75,6 @@ function Ticket() {
 
   if (!ticket) {
     return <Spinner />
-  }
-
-  if (isError) {
-    return <h3>Something Went Wrong</h3>
   }
 
   return (

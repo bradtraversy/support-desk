@@ -3,15 +3,14 @@ import noteService from './noteService'
 // NOTE: use a extractErrorMessage function to save some repetition
 import { extractErrorMessage } from '../../utils'
 
-// NOTE: removed isLoading, isSuccess and reset
+// NOTE: removed isLoading, isSuccess, isError, message and reset
 // loading can be infered from presence or absence of notes
-// success can be infered from presence or absence of error
+// success can be infered from presence or absence of notes
+// error meassages can be recieved at component level from our AsyncThunkAction
 // reset was never actually used
 
 const initialState = {
   notes: null,
-  isError: false,
-  message: '',
 }
 
 // Get ticket notes
@@ -49,8 +48,6 @@ export const noteSlice = createSlice({
         // NOTE: reset notes to null on pending so we can show a Spinner while
         // fetching notes
         state.notes = null
-        state.isError = false
-        state.message = ''
       })
       .addCase(getNotes.fulfilled, (state, action) => {
         // NOTE: even if there are no notes for the ticket we get an empty
@@ -59,17 +56,8 @@ export const noteSlice = createSlice({
         // means we have finished fetching the notes.
         state.notes = action.payload
       })
-      .addCase(getNotes.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
-      })
       .addCase(createNote.fulfilled, (state, action) => {
         state.notes.push(action.payload)
-      })
-      .addCase(createNote.rejected, (state, action) => {
-        state.isError = true
-        state.message = action.payload
       })
   },
 })
