@@ -64,6 +64,7 @@ function Ticket() {
     dispatch(createNote({ noteText, ticketId }))
       .unwrap()
       .then(() => {
+        setNoteText('')
         closeModal()
       })
       .catch(toast.error)
