@@ -7,7 +7,8 @@ import { extractErrorMessage } from '../../utils'
 const user = JSON.parse(localStorage.getItem('user'))
 
 // NOTE: remove isSuccess from state as we can infer from
-// presence or absence of user plus no need for a reset function
+// presence or absence of user
+// There is no need for a reset function as we can do this in our pending cases
 // No need for isError or message as we can catch the AsyncThunkAction rejection
 // in our component and we will have the error message there
 const initialState = {
@@ -46,15 +47,15 @@ export const logout = createAction('auth/logout', () => {
   return {}
 })
 
+// NOTE: in cases of login or register pending or rejected then user will
+// already be null so no need to set to null in these cases
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
-        // reset state on pending
-        // NOTE: user will already be null if registering
-        // state.user = null
         state.isLoading = true
       })
       .addCase(register.fulfilled, (state, action) => {
@@ -63,13 +64,8 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false
-        // NOTE: user will already be null if register failed
-        // state.user = null
       })
       .addCase(login.pending, (state) => {
-        // reset state on pending
-        // NOTE: user will already be null if logging in
-        // state.user = null
         state.isLoading = false
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -78,8 +74,6 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false
-        // NOTE: user will already be null if login failed
-        // state.user = null
       })
       .addCase(logout, (state) => {
         state.user = null
