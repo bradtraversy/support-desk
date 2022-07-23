@@ -80,9 +80,6 @@ export const ticketSlice = createSlice({
       .addCase(getTickets.fulfilled, (state, action) => {
         state.tickets = action.payload
       })
-      .addCase(getTickets.rejected, (state, action) => {
-        state.message = action.payload
-      })
       .addCase(getTicket.fulfilled, (state, action) => {
         state.ticket = action.payload
       })
