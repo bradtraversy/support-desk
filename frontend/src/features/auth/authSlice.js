@@ -53,7 +53,8 @@ export const authSlice = createSlice({
     builder
       .addCase(register.pending, (state) => {
         // reset state on pending
-        state.user = null
+        // NOTE: user will already be null if registering
+        // state.user = null
         state.isLoading = true
       })
       .addCase(register.fulfilled, (state, action) => {
@@ -62,11 +63,13 @@ export const authSlice = createSlice({
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false
-        state.user = null
+        // NOTE: user will already be null if register failed
+        // state.user = null
       })
       .addCase(login.pending, (state) => {
         // reset state on pending
-        state.user = null
+        // NOTE: user will already be null if logging in
+        // state.user = null
         state.isLoading = false
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -75,7 +78,8 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false
-        state.user = null
+        // NOTE: user will already be null if login failed
+        // state.user = null
       })
       .addCase(logout, (state) => {
         state.user = null
