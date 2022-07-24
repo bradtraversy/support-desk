@@ -2,12 +2,13 @@ const asyncHandler = require('express-async-handler')
 
 const Ticket = require('../models/ticketModel')
 
+// NOTE: no need to get the user on, we already have them on req object from
+// protect middleware. The protect middleware already checks for valid user.
+
 // @desc    Get user tickets
 // @route   GET /api/tickets
 // @access  Private
 const getTickets = asyncHandler(async (req, res) => {
-  // NOTE: no need to get the user, we already have them on req object from
-  // protect middleware
   const tickets = await Ticket.find({ user: req.user.id })
 
   res.status(200).json(tickets)
@@ -17,9 +18,6 @@ const getTickets = asyncHandler(async (req, res) => {
 // @route   GET /api/tickets/:id
 // @access  Private
 const getTicket = asyncHandler(async (req, res) => {
-  // NOTE: no need to get the user, we already have them on req object from
-  // protect middleware
-
   const ticket = await Ticket.findById(req.params.id)
 
   if (!ticket) {
@@ -46,9 +44,6 @@ const createTicket = asyncHandler(async (req, res) => {
     throw new Error('Please add a product and description')
   }
 
-  // NOTE: no need to get the user, we already have them on req object from
-  // protect middleware
-
   const ticket = await Ticket.create({
     product,
     description,
@@ -63,9 +58,6 @@ const createTicket = asyncHandler(async (req, res) => {
 // @route   DELETE /api/tickets/:id
 // @access  Private
 const deleteTicket = asyncHandler(async (req, res) => {
-  // NOTE: no need to get the user, we already have them on req object from
-  // protect middleware
-
   const ticket = await Ticket.findById(req.params.id)
 
   if (!ticket) {
@@ -87,9 +79,6 @@ const deleteTicket = asyncHandler(async (req, res) => {
 // @route   PUT /api/tickets/:id
 // @access  Private
 const updateTicket = asyncHandler(async (req, res) => {
-  // NOTE: no need to get the user, we already have them on req object from
-  // protect middleware
-
   const ticket = await Ticket.findById(req.params.id)
 
   if (!ticket) {
