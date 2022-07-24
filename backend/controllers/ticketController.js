@@ -7,14 +7,8 @@ const Ticket = require('../models/ticketModel')
 // @route   GET /api/tickets
 // @access  Private
 const getTickets = asyncHandler(async (req, res) => {
-  // Get user using the id in the JWT
-  const user = await User.findById(req.user.id)
-
-  if (!user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
-
+  // NOTE: no need to get the user, we already have them on req object from
+  // protect middleware
   const tickets = await Ticket.find({ user: req.user.id })
 
   res.status(200).json(tickets)
@@ -24,13 +18,8 @@ const getTickets = asyncHandler(async (req, res) => {
 // @route   GET /api/tickets/:id
 // @access  Private
 const getTicket = asyncHandler(async (req, res) => {
-  // Get user using the id in the JWT
-  const user = await User.findById(req.user.id)
-
-  if (!user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // NOTE: no need to get the user, we already have them on req object from
+  // protect middleware
 
   const ticket = await Ticket.findById(req.params.id)
 
@@ -58,13 +47,8 @@ const createTicket = asyncHandler(async (req, res) => {
     throw new Error('Please add a product and description')
   }
 
-  // Get user using the id in the JWT
-  const user = await User.findById(req.user.id)
-
-  if (!user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // NOTE: no need to get the user, we already have them on req object from
+  // protect middleware
 
   const ticket = await Ticket.create({
     product,
@@ -80,13 +64,8 @@ const createTicket = asyncHandler(async (req, res) => {
 // @route   DELETE /api/tickets/:id
 // @access  Private
 const deleteTicket = asyncHandler(async (req, res) => {
-  // Get user using the id in the JWT
-  const user = await User.findById(req.user.id)
-
-  if (!user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // NOTE: no need to get the user, we already have them on req object from
+  // protect middleware
 
   const ticket = await Ticket.findById(req.params.id)
 
@@ -109,13 +88,8 @@ const deleteTicket = asyncHandler(async (req, res) => {
 // @route   PUT /api/tickets/:id
 // @access  Private
 const updateTicket = asyncHandler(async (req, res) => {
-  // Get user using the id in the JWT
-  const user = await User.findById(req.user.id)
-
-  if (!user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // NOTE: no need to get the user, we already have them on req object from
+  // protect middleware
 
   const ticket = await Ticket.findById(req.params.id)
 

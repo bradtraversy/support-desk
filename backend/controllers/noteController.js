@@ -8,13 +8,8 @@ const Ticket = require('../models/ticketModel')
 // @route   GET /api/tickets/:ticketId/notes
 // @access  Private
 const getNotes = asyncHandler(async (req, res) => {
-  // Get user using the id in the JWT
-  const user = await User.findById(req.user.id)
-
-  if (!user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // NOTE: no need to get the user, we already have them on req object from
+  // protect middleware
 
   const ticket = await Ticket.findById(req.params.ticketId)
 
@@ -32,13 +27,8 @@ const getNotes = asyncHandler(async (req, res) => {
 // @route   POST /api/tickets/:ticketId/notes
 // @access  Private
 const addNote = asyncHandler(async (req, res) => {
-  // Get user using the id in the JWT
-  const user = await User.findById(req.user.id)
-
-  if (!user) {
-    res.status(401)
-    throw new Error('User not found')
-  }
+  // NOTE: no need to get the user, we already have them on req object from
+  // protect middleware
 
   const ticket = await Ticket.findById(req.params.ticketId)
 
