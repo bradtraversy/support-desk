@@ -85,6 +85,19 @@ We don't need to use an AsyncThunk here and can simply use a plain action.
 
 > Code changes can be seen in [authSlice.js](./frontend/src/features/auth/authSlice.js#L45)
 
+#### BUG: PrivateRoute never shows a Spinner
+
+It won't. When a user enters a the app on a PrivateRoute such as **/tickets**
+then we never actually make any reqeust to the backend to authenticate them. We
+have a user in local storage and in Redux or we don't. If we do have a user then
+we trust the user is authenticated. This doesn't really take any time as all we
+are doing is getting the user from our Redux store. If we were making a request
+to the back end to authenticate the user then we could indeed make use of
+`isLoading` and a Spinner here in our PrivateRoute.
+Since it's not used it can be removed.
+
+> Code changes can be see in [PrivateRoute.js](./frontend/src/components/PrivateRoute.jsx)
+
 ## Simpler state management
 
 #### Tickets and note state
