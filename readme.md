@@ -4,7 +4,7 @@ Support ticket application built with the MERN stack. This is a project from my 
 
 # Bug Fixes, corrections and code FAQ
 
-This branch aims to fix bugs found by students of the Udemy course and answer common questions, it also features [simpler state management](#-simpler-state-management) than the course code.
+This branch aims to fix bugs found by students of the Udemy course and answer common questions, it also features [simpler state management](#simpler-state-management) than the course code.
 If you are looking to compare your code to that from the course lessons then
 please refer to the [originalcoursecode](https://github.com/bradtraversy/support-desk/tree/originalcoursecode) branch of this repository.
 
