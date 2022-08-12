@@ -87,7 +87,7 @@ We don't need to use an AsyncThunk here and can simply use a plain action.
 
 #### BUG: PrivateRoute never shows a Spinner
 
-It won't. When a user enters a the app on a PrivateRoute such as **/tickets**
+It won't. When a user enters the app on a PrivateRoute such as **/tickets**
 then we never actually make any reqeust to the backend to authenticate them. We
 have a user in local storage and in Redux or we don't. If we do have a user then
 we trust the user is authenticated. This doesn't really take any time as all we
