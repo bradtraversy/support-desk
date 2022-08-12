@@ -56,7 +56,7 @@ There is no need for nested routing here as the route is the same as the parent,
 this can be removed and PrivateRoute can be changed to render it's children.
 
 > Code changes can be seen in [App.js](./frontend/src/App.js) and
-> [PrivateRoute.jsj](./frontend/src/components/PrivateRoute.jsx)
+> [PrivateRoute.js](./frontend/src/components/PrivateRoute.jsx)
 
 #### Q: Why are we using a custom hook in our PrivateRoute?
 
@@ -65,7 +65,7 @@ logic in many different components. Since we only use our useAuthStatus hook in
 our PrivateRoute component it's actually simpler to just consume Redux state
 directly in our PrivateRoute without using a custom hook.
 
-> Code changes can be seen in [PrivateRoute.jsj](./frontend/src/components/PrivateRoute.jsx) with the removal of useAuthStatus.js
+> Code changes can be seen in [PrivateRoute.js](./frontend/src/components/PrivateRoute.jsx) with the removal of useAuthStatus.js
 
 #### Q: Why the repetitive code to get an error message?
 
