@@ -2,7 +2,6 @@ const errorHandler = (error, _, res, next) => {
   // FIX: check for bad status codes, if it's a good status code then we want to send
   // a bad status code i.e. 2xx should not be sent as error response
   const statusCode = res.statusCode < 400 ? 500 : res.statusCode
-  console.log('error middleware')
 
   res.status(statusCode)
   res.json({
