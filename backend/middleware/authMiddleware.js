@@ -20,7 +20,7 @@ const protect = asyncHandler(async (req, res, next) => {
       // https://www.udemy.com/course/react-front-to-back-2022/learn/lecture/30591026#questions/17843570
       if (!req.user) {
         res.status(401)
-        throw new Error('Not authirised')
+        throw new Error('Not authorized')
       }
 
       next()
